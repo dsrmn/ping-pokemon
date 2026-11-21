@@ -44,7 +44,7 @@ def load_bot_state():
     st = load_json(BOT_STATE_FILE, {})
     st.setdefault("paused", False)
     st.setdefault("overrides", {})
-    st.setdefault("telegram_offset", 0)
+    st.setdefault("telegram_last_id", None)
     st.setdefault("last_summary_date", None)
     return st
 
