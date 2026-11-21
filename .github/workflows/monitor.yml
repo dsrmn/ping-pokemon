@@ -1,0 +1,77 @@
+name: Monitor Cardtrader Pokemon
+
+on:
+  schedule:
+    # Ogni 20 minuti, a minuti "tranquilli" (GitHub salta più spesso i giri a :00)
+    - cron: "12,32,52 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Prova senza mandare messaggi Telegram (li stampa nel log)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# Mai due scansioni (o una scansione e una ricostruzione dell'indice) insieme
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa dipendenze
+        run: pip install -r requirements.txt
+
+      - name: Leggi i comandi Telegram
+        # es. /pausa, /sconto 35, /escludi ... (vedi telegram_bot.py)
+        if: ${{ inputs.dry_run != true }}
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python telegram_bot.py
+
+      - name: Crea l'indice carte se manca o se le rarità sono cambiate
+        env:
+          CARDTRADER_TOKEN: ${{ secrets.CARDTRADER_TOKEN }}
+        run: python build_card_index.py --if-outdated
+
+      - name: Esegui scansione prezzi
+        env:
+          CARDTRADER_TOKEN: ${{ secrets.CARDTRADER_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python monitor.py --dry-run
+          else
+            python monitor.py
+          fi
+
+      - name: Salva lo storico delle notifiche e l'indice
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          for f in sent_alerts.json cards_index.json rarities_seen.json config.json bot_state.json price_history.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
+          if ! git diff --staged --quiet; then
+            git commit -m "Aggiorna stato bot"
+            for i in 1 2 3 4 5; do
+              git pull --rebase && git push && break
+              echo "Push fallito (tentativo $i), riprovo tra 5 secondi..."
+              sleep 5
+            done
+          fi
