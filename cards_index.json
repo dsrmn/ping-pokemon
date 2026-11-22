@@ -1,7 +1,7 @@
 {
  "version": 1,
- "fingerprint": "b153c59ddd07",
- "built_at": "2026-11-22T12:42:37+00:00",
+ "fingerprint": "ab945f73a19d",
+ "built_at": "2026-11-22T13:14:50+00:00",
  "expansions": {
   "1471": {
    "name": "League Promos",
@@ -775,6 +775,30 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/111864/show_white-kyurem-ex-103-149-boundaries-crossed.jpg"
     },
+    "111931": {
+     "name": "Computer Search",
+     "number": "137/149",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/111931/show_computer-search-137-149-boundaries-crossed.jpg"
+    },
+    "111932": {
+     "name": "Crystal Edge",
+     "number": "138/149",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/111932/show_crystal-edge-138-149-boundaries-crossed.jpg"
+    },
+    "111933": {
+     "name": "Crystal Wall",
+     "number": "139/149",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/111933/show_crystal-wall-139-149-boundaries-crossed.jpg"
+    },
+    "111934": {
+     "name": "Gold Potion",
+     "number": "140/149",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/111934/show_gold-potion-140-149-boundaries-crossed.jpg"
+    },
     "111935": {
      "name": "Celebi ex",
      "number": "141/149",
@@ -907,6 +931,24 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/125368/show_lugia-ex-108-135-plasma-storm.jpg"
     },
+    "125407": {
+     "name": "Dowsing Machine",
+     "number": "128",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/125407/show_dowsing-machine-rare-holo-128-135-plasma-storm.jpg"
+    },
+    "125408": {
+     "name": "Scramble Switch",
+     "number": "129",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/125408/show_scramble-switch-rare-holo-129-135-plasma-storm.jpg"
+    },
+    "125409": {
+     "name": "Victory Piece",
+     "number": "130",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/125409/show_victory-piece-rare-holo-130-135-plasma-storm.jpg"
+    },
     "125410": {
      "name": "Victini EX",
      "number": "131",
@@ -961,6 +1003,18 @@
    "name": "Plasma Freeze",
    "code": "plf",
    "blueprints": {
+    "125129": {
+     "name": "Life Dew",
+     "number": "107/116",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/125129/show_life-dew-107-116-plasma-freeze.jpg"
+    },
+    "125130": {
+     "name": "Rock Guard",
+     "number": "108/116",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/125130/show_rock-guard-108-116-plasma-freeze.jpg"
+    },
     "125131": {
      "name": "Heatran ex",
      "number": "109/116",
@@ -1051,6 +1105,30 @@
    "name": "Plasma Blast",
    "code": "plb",
    "blueprints": {
+    "124898": {
+     "name": "G Booster",
+     "number": "092/101",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/124898/show_g-booster-92-101-plasma-blast.jpg"
+    },
+    "124899": {
+     "name": "G Scope",
+     "number": "093/101",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/124899/show_g-scope-93-101-plasma-blast.jpg"
+    },
+    "124900": {
+     "name": "Master Ball",
+     "number": "094/101",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/124900/show_master-ball-94-101-plasma-blast.jpg"
+    },
+    "124901": {
+     "name": "Scoop Up Cyclone",
+     "number": "095/101",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/124901/show_scoop-up-cyclone-95-101-plasma-blast.jpg"
+    },
     "124902": {
      "name": "Virizion EX",
      "number": "096/101",
@@ -16279,6 +16357,12 @@
    "name": "Fusion Strike",
    "code": "fst",
    "blueprints": {
+    "200493": {
+     "name": "Gengar VMAX",
+     "number": "271",
+     "rarity": "Special Illustraion Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/200493/show_gengar-vmax-271-264-fusion-strike.png"
+    },
     "200499": {
      "name": "Breloom V",
      "number": "006",
@@ -16567,6 +16651,12 @@
      "rarity": "Secret Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/200759/show_chandelure-vmax-265-264-fusion-strike.png"
     },
+    "200760": {
+     "name": "Inteleon VMAX",
+     "number": "266",
+     "rarity": "Special Illustraion Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/200760/show_inteleon-vmax-266-264-fusion-strike.png"
+    },
     "200761": {
      "name": "Boltund VMAX",
      "number": "267",
@@ -16584,6 +16674,12 @@
      "number": "269",
      "rarity": "Special Illustration Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/200763/show_mew-vmax-269-264-fusion-strike.png"
+    },
+    "200764": {
+     "name": "Espeon VMAX",
+     "number": "270",
+     "rarity": "Special Illustraion Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/200764/show_espeon-vmax-270-264-fusion-strike.png"
     },
     "200765": {
      "name": "Greedent VMAX",
@@ -23796,6 +23892,18 @@
      "number": "087",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/234559/show_miss-fortune-sisters-secret-rare-087-071-dark-phantasma.jpg"
+    },
+    "234560": {
+     "name": "Enamorus V",
+     "number": "088",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/234560/show_enamorus-v-secret-rare-088-071-dark-phantasma.jpg"
+    },
+    "234561": {
+     "name": "Gallade V",
+     "number": "089",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/234561/show_gallade-v-secret-rare-089-071-dark-phantasma.jpg"
     },
     "234562": {
      "name": "Magnezone VSTAR",
@@ -32089,6 +32197,24 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/275036/show_scizor-ex-044-071-cyber-judge.png"
     },
+    "275054": {
+     "name": "Prime Catcher",
+     "number": "062",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/275054/show_prime-catcher-062-071-cyber-judge.png"
+    },
+    "275055": {
+     "name": "Reboot Pod",
+     "number": "063",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/275055/show_reboot-pod-063-071-cyber-judge.png"
+    },
+    "275056": {
+     "name": "Hero’s Cape",
+     "number": "064",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/275056/show_hero-s-cape-064-071-cyber-judge.jpeg"
+    },
     "275161": {
      "name": "Iron Boulder ex",
      "number": "100",
@@ -32310,6 +32436,24 @@
      "number": "053",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/275116/show_raging-bolt-ex-053-071-wild-force.png"
+    },
+    "275125": {
+     "name": "Awakening Drum",
+     "number": "062",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/275125/show_awakening-drum-062-071-wild-force.png"
+    },
+    "275129": {
+     "name": "Maximum Belt",
+     "number": "066",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/275129/show_maximum-belt-066-071-wild-force.jpg"
+    },
+    "275134": {
+     "name": "Neo Upper Energy",
+     "number": "071",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/275134/show_neo-upper-energy-071-071-wild-force.png"
     },
     "275317": {
      "name": "Grotle",
@@ -32545,6 +32689,18 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/275759/show_torterra-ex-012-162-temporal-forces.jpg"
     },
+    "275761": {
+     "name": "Master Ball",
+     "number": "153",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/275761/show_master-ball-153-162-temporal-forces.jpg"
+    },
+    "275762": {
+     "name": "Prime Catcher",
+     "number": "157",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/275762/show_prime-catcher-157-162-temporal-forces.jpg"
+    },
     "280981": {
      "name": "Scovillain ex",
      "number": "022",
@@ -32628,6 +32784,36 @@
      "number": "123",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/281089/show_raging-bolt-ex-123-162-temporal-forces.jpg"
+    },
+    "281144": {
+     "name": "Awakening Drum",
+     "number": "141",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/281144/show_awakening-drum-141-162-temporal-forces.jpg"
+    },
+    "281155": {
+     "name": "Hero's Cape",
+     "number": "152",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/281155/show_hero-s-cape-152-162-temporal-forces.jpg"
+    },
+    "281156": {
+     "name": "Maximum Belt",
+     "number": "154",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/281156/show_maximum-belt-154-162-temporal-forces.jpg"
+    },
+    "281159": {
+     "name": "Reboot Pod",
+     "number": "158",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/281159/show_reboot-pod-158-162-temporal-forces.jpg"
+    },
+    "281163": {
+     "name": "Neo Upper Energy",
+     "number": "162",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/281163/show_neo-upper-energy-162-162-temporal-forces.jpg"
     },
     "281164": {
      "name": "Shiftry",
@@ -33283,6 +33469,18 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/281124/show_scream-tail-ex-040-066-crimson-haze.jpg"
     },
+    "281127": {
+     "name": "Unfair Stamp",
+     "number": "053",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/281127/show_unfair-stamp-053-066-crimson-haze.jpg"
+    },
+    "281130": {
+     "name": "Survival Braces",
+     "number": "059",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/281130/show_survival-braces-059-066-crimson-haze.jpg"
+    },
     "281136": {
      "name": "Pinsir",
      "number": "067",
@@ -33342,6 +33540,12 @@
      "number": "045",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/283579/show_greninja-ex-045-066-crimson-haze.jpg"
+    },
+    "283585": {
+     "name": "Hyper Aroma",
+     "number": "055",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/283585/show_hyper-aroma-055-066-crimson-haze.jpg"
     },
     "283597": {
      "name": "Luminous Energy",
@@ -33511,6 +33715,18 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/286449/show_luxray-ex-041-101-mask-of-change.jpg"
     },
+    "286469": {
+     "name": "Scoop Up Cyclone",
+     "number": "093",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/286469/show_scoop-up-cyclone-093-101-mask-of-change.jpg"
+    },
+    "286474": {
+     "name": "Secret Box",
+     "number": "092",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/286474/show_secret-box-092-101-mask-of-change.jpg"
+    },
     "286479": {
      "name": "Dragapult ex",
      "number": "081",
@@ -33564,6 +33780,12 @@
      "number": "114",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/286510/show_teal-mask-ogerpon-ex-full-art-114-101-mask-of-change.jpg"
+    },
+    "286511": {
+     "name": "Legacy Energy",
+     "number": "101",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/286511/show_legacy-energy-101-101-mask-of-change.jpg"
     },
     "286512": {
      "name": "Buddy-Buddy Poffin",
@@ -33721,6 +33943,24 @@
    "name": "Twilight Masquerade",
    "code": "twm",
    "blueprints": {
+    "287136": {
+     "name": "Unfair Stamp",
+     "number": "165",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/287136/show_unfair-stamp-165-167-twilight-masquerade.jpg"
+    },
+    "287137": {
+     "name": "Survival Brace",
+     "number": "164",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/287137/show_survival-brace-164-167-twilight-masquerade.jpg"
+    },
+    "287138": {
+     "name": "Scoop Up Cyclone",
+     "number": "162",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/287138/show_scoop-up-cyclone-162-167-twilight-masquerade.jpg"
+    },
     "287143": {
      "name": "Blissey ex",
      "number": "134",
@@ -33804,6 +34044,24 @@
      "number": "141",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/287841/show_bloodmoon-ursaluna-ex-141-167-twilight-masquerade.jpg"
+    },
+    "287851": {
+     "name": "Hyper Aroma",
+     "number": "152",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/287851/show_hyper-aroma-152-167-twilight-masquerade.jpg"
+    },
+    "287859": {
+     "name": "Secret Box",
+     "number": "163",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/287859/show_secret-box-163-167-twilight-masquerade.jpg"
+    },
+    "287861": {
+     "name": "Legacy Energy",
+     "number": "167",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/287861/show_legacy-energy-167-167-twilight-masquerade.jpg"
     },
     "287862": {
      "name": "Pinsir",
@@ -34399,6 +34657,24 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/290532/show_pecharunt-ex-039-064-night-wanderer.jpg"
     },
+    "290547": {
+     "name": "Dangerous Laser",
+     "number": "054",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/290547/show_dangerous-laser-054-064-night-wanderer.jpg"
+    },
+    "290548": {
+     "name": "Poké-Vital A",
+     "number": "055",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/290548/show_poke-vital-a-054-064-night-wanderer.jpg"
+    },
+    "290556": {
+     "name": "Neutralization Zone",
+     "number": "063",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/290556/show_neutral-center-063-064-night-wanderer.jpg"
+    },
     "290558": {
      "name": "Tapu Bulu",
      "number": "065",
@@ -34620,6 +34896,24 @@
      "number": "039",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/294980/show_pecharunt-ex-039-064-shrouded-fable.jpg"
+    },
+    "295006": {
+     "name": "Dangerous Laser",
+     "number": "058",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/295006/show_dangerous-laser-058-064-shrouded-fable.jpg"
+    },
+    "295008": {
+     "name": "Neutralization Zone",
+     "number": "060",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/295008/show_neutralization-zone-060-064-shrouded-fable.jpg"
+    },
+    "295011": {
+     "name": "Poké Vital A",
+     "number": "062",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/295011/show_poke-vital-a-062-064-shrouded-fable.jpg"
     },
     "295014": {
      "name": "Tapu Bulu",
@@ -34861,6 +35155,12 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/294557/show_terapagos-ex-088-102-stellar-miracle.jpg"
     },
+    "294560": {
+     "name": "Sparkling Crystal",
+     "number": "094",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/294560/show_sparkling-crystal-094-102-stellar-miracle.jpg"
+    },
     "294569": {
      "name": "Medicham ex",
      "number": "054",
@@ -34879,6 +35179,12 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/294738/show_dachsbun-ex-046-102-stellar-miracle.jpg"
     },
+    "294739": {
+     "name": "Deluxe Bomb",
+     "number": "096",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/294739/show_deluxe-bomb-096-102-stellar-miracle.jpg"
+    },
     "294777": {
      "name": "Galvantula ex",
      "number": "033",
@@ -34890,6 +35196,12 @@
      "number": "108",
      "rarity": "Illustration Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/294784/show_joltik-illustration-rare-108-102-stellar-miracle.jpg"
+    },
+    "294800": {
+     "name": "Great Big Tree",
+     "number": "101",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/294800/show_great-big-tree-101-102-stellar-miracle.jpg"
     },
     "294842": {
      "name": "Noctowl",
@@ -35172,6 +35484,24 @@
      "number": "128",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/298435/show_terapagos-ex-128-142-stellar-crown.jpg"
+    },
+    "298441": {
+     "name": "Deluxe Bomb",
+     "number": "134",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/298441/show_deluxe-bomb-134-142-stellar-crown.jpg"
+    },
+    "298443": {
+     "name": "Grand Tree",
+     "number": "136",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/298443/show_grand-tree-136-142-stellar-crown.jpg"
+    },
+    "298450": {
+     "name": "Sparkling Crystal",
+     "number": "142",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/298450/show_sparkling-crystal-142-142-stellar-crown.jpg"
     },
     "299002": {
      "name": "Bulbasaur",
@@ -35503,11 +35833,23 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/300304/show_black-kyurem-ex-ultra-rare-011-064-paradise-dragona.jpg"
     },
+    "300315": {
+     "name": "Megaton Blower",
+     "number": "056",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/300315/show_megaton-blower-056-064-paradise-dragona(2).jpg"
+    },
     "300317": {
      "name": "Cyclizar ex",
      "number": "051",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/300317/show_cyclizar-ex-ultra-rare-051-064-paradise-dragona.jpg"
+    },
+    "300320": {
+     "name": "Energy Search Pro",
+     "number": "052",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/300320/show_energy-search-pro-052-064-paradise-dragona(2).jpg"
     },
     "300334": {
      "name": "Latias ex",
@@ -35538,6 +35880,12 @@
      "number": "093",
      "rarity": "Secret Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/300339/show_counter-gain-gold-secret-rare-093-064-paradise-dragona(2).jpg"
+    },
+    "300343": {
+     "name": "Rich Energy",
+     "number": "064",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/300343/show_rich-energy-064-064-paradise-dragona(2).jpg"
     },
     "300344": {
      "name": "Exeggcute",
@@ -35820,6 +36168,54 @@
      "number": "160",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/306270/show_flamigo-ex-160-191-surging-sparks.png"
+    },
+    "306272": {
+     "name": "Amulet of Hope",
+     "number": "162",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/306272/show_amulet-of-hope-162-191-surging-sparks.png"
+    },
+    "306274": {
+     "name": "Brilliant Blender",
+     "number": "164",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/306274/show_brilliant-blender-164-191-surging-sparks.png"
+    },
+    "306286": {
+     "name": "Energy Search Pro",
+     "number": "176",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/306286/show_energy-search-pro-176-191-surging-sparks.png"
+    },
+    "306292": {
+     "name": "Megaton Blower",
+     "number": "182",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/306292/show_megaton-blower-182-191-surging-sparks.png"
+    },
+    "306293": {
+     "name": "Miracle Headset",
+     "number": "183",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/306293/show_miracle-headset-183-191-surging-sparks.png"
+    },
+    "306295": {
+     "name": "Precious Trolley",
+     "number": "185",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/306295/show_precious-trolley-185-191-surging-sparks.png"
+    },
+    "306296": {
+     "name": "Scramble Switch",
+     "number": "186",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/306296/show_scramble-switch-186-191-surging-sparks.png"
+    },
+    "306301": {
+     "name": "Enriching Energy",
+     "number": "191",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/306301/show_enriching-energy-191-191-surging-sparks.png"
     },
     "306302": {
      "name": "Exeggcute",
@@ -36234,6 +36630,24 @@
      "number": "084",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/304670/show_slaking-ex-084-106-super-electric-breaker.jpg"
+    },
+    "304672": {
+     "name": "Scramble Switch",
+     "number": "095",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/304672/show_scramble-switch-095-106-super-electric-breaker.jpg"
+    },
+    "304675": {
+     "name": "Miracle Headset",
+     "number": "097",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/304675/show_miracle-intercom-097-106-super-electric-breaker.jpg"
+    },
+    "304676": {
+     "name": "Amulet of Hope",
+     "number": "098",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/304676/show_amulet-of-hope-098-106-super-electric-breaker.jpg"
     },
     "304686": {
      "name": "Vivillon",
@@ -36751,6 +37165,42 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/311817/show_terapagos-ex-ultra-rare-136-187-terastal-festival-ex.jpg"
     },
+    "311819": {
+     "name": "Fishing Rod MAX",
+     "number": "142",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/311819/show_fishing-rod-max-142-187-terastal-festival-ex.jpg"
+    },
+    "311825": {
+     "name": "Prime Catcher",
+     "number": "148",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/311825/show_prime-catcher-148-187-terastal-festival-ex.jpg"
+    },
+    "311826": {
+     "name": "Scoop Up Cyclone",
+     "number": "149",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/311826/show_scoop-up-cyclone-149-187-terastal-festival-ex.png"
+    },
+    "311830": {
+     "name": "Maximum Belt",
+     "number": "159",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/311830/show_maximum-belt-159-187-terastal-festival-ex.jpg"
+    },
+    "311845": {
+     "name": "Neutralization Zone",
+     "number": "184",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/311845/show_neutralization-zone-184-187-terastal-festival-ex.jpg"
+    },
+    "311847": {
+     "name": "Legacy Energy",
+     "number": "187",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/311847/show_enriching-energy-187-187-terastal-festival-ex.jpg"
+    },
     "311848": {
      "name": "Friends in Paldea",
      "number": "195",
@@ -36978,6 +37428,12 @@
      "number": "200",
      "rarity": "Special Illustration Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/313190/show_leafeon-ex-special-illustration-rare-200-187-terastal-festival-ex.jpg"
+    },
+    "313201": {
+     "name": "Sparkling Crystal",
+     "number": "152",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/313201/show_sparkling-crystal-152-187-terastal-festival-ex.jpg"
     },
     "313218": {
      "name": "Okidogi ex",
@@ -37272,6 +37728,42 @@
      "number": "092",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/316705/show_terapagos-ex-ultra-rare-092-131-prismatic-evolutions.jpg"
+    },
+    "316745": {
+     "name": "Max Rod",
+     "number": "116",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/316745/show_max-rod-116-131-prismatic-evolutions.jpg"
+    },
+    "316746": {
+     "name": "Maximum Belt",
+     "number": "117",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/316746/show_maximum-belt-117-131-prismatic-evolutions.jpg"
+    },
+    "316749": {
+     "name": "Prime Catcher",
+     "number": "119",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/316749/show_prime-catcher-119-131-prismatic-evolutions.jpg"
+    },
+    "316760": {
+     "name": "Scoop Up Cyclone",
+     "number": "128",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/316760/show_scoop-up-cyclone-128-131-prismatic-evolutions.jpg"
+    },
+    "316761": {
+     "name": "Sparkling Crystal",
+     "number": "129",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/316761/show_sparkling-crystal-129-131-prismatic-evolutions.jpg"
+    },
+    "316763": {
+     "name": "Treasure Tracker",
+     "number": "131",
+     "rarity": "Rare ACE",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/316763/show_treasure-tracker-131-131-prismatic-evolutions.jpg"
     },
     "316765": {
      "name": "Amarys",
@@ -43783,6 +44275,12 @@
    "name": "CS4a: Nine Colors Gathering - Friends",
    "code": "cs4a",
    "blueprints": {
+    "331770": {
+     "name": "Umbreon VMAX",
+     "number": "173",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/331770/show_umbreon-vmax-hyper-rare-173-132-nine-colors-gathering-set-a.png"
+    },
     "336914": {
      "name": "Leafeon V",
      "number": "008",
@@ -44107,11 +44605,35 @@
      "rarity": "Secret Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/337125/show_glaceon-vmax-rainbow-secret-rare-167-132-nine-colors-gathering-set-a.png"
     },
+    "337126": {
+     "name": "Leafeon VMAX",
+     "number": "166",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/337126/show_leafeon-vmax-secret-rare-166-132-nine-colors-gathering-set-a.png"
+    },
+    "337127": {
+     "name": "Glaceon VMAX",
+     "number": "168",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/337127/show_glaceon-vmax-secret-rare-168-132-nine-colors-gathering-set-a.png"
+    },
+    "337128": {
+     "name": "Espeon VMAX",
+     "number": "169",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/337128/show_espeon-vmax-secret-rare-169-132-nine-colors-gathering-set-a.png"
+    },
     "337129": {
      "name": "Sylveon VMAX",
      "number": "170",
      "rarity": "Secret Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/337129/show_sylveon-vmax-rainbow-secret-rare-170-132-nine-colors-gathering-set-a.png"
+    },
+    "337130": {
+     "name": "Sylveon VMAX",
+     "number": "171",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/337130/show_sylveon-vmax-secret-rare-171-132-nine-colors-gathering-set-a.png"
     },
     "337131": {
      "name": "Umbreon VMAX",
@@ -44124,6 +44646,12 @@
      "number": "174",
      "rarity": "Secret Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/337132/show_duraludon-vmax-rainbow-secret-rare-174-132-nine-colors-gathering-set-a.png"
+    },
+    "337133": {
+     "name": "Duraludon VMAX",
+     "number": "175",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/337133/show_duraludon-vmax-secret-rare-175-132-nine-colors-gathering-set-a.png"
     },
     "337134": {
      "name": "Raihan",
@@ -44430,6 +44958,18 @@
      "number": "157",
      "rarity": "Secret Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/337762/show_trevenant-vmax-rainbow-secret-rare-157-132-cs4b-nine-colors-gathering-set-b.png"
+    },
+    "337763": {
+     "name": "Mew VMAX",
+     "number": "162",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/337763/show_mew-vmax-secret-rare-162-132-cs4b-nine-colors-gathering-set-b.png"
+    },
+    "337764": {
+     "name": "Rayquaza VMAX",
+     "number": "165",
+     "rarity": "Special Illustration",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/337764/show_rayquaza-vmax-secret-rare-165-132-cs4b-nine-colors-gathering-set-b.png"
     },
     "337765": {
      "name": "Rayquaza VMAX",
@@ -57133,6 +57673,60 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/367612/show_lugia-ex-ultra-rare-163-115-blade-awakening.jpg"
     },
+    "367625": {
+     "name": "Awakening Drum",
+     "number": "176",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367625/show_awakening-drum-176-115-blade-awakening.jpg"
+    },
+    "367627": {
+     "name": "Hyper Aroma",
+     "number": "178",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367627/show_hyper-aroma-178-115-blade-awakening.jpg"
+    },
+    "367629": {
+     "name": "Prime Catcher",
+     "number": "180",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367629/show_prime-catcher-180-115-blade-awakening.jpg"
+    },
+    "367630": {
+     "name": "Master Ball",
+     "number": "181",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367630/show_master-ball-181-115-blade-awakening.jpg"
+    },
+    "367632": {
+     "name": "Reboot Pod",
+     "number": "183",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367632/show_reboot-pod-183-115-blade-awakening.jpg"
+    },
+    "367635": {
+     "name": "Survival Brace",
+     "number": "186",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367635/show_survival-brace-186-115-blade-awakening.jpg"
+    },
+    "367636": {
+     "name": "Hero's Cape",
+     "number": "187",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367636/show_hero-s-cape-187-115-blade-awakening.jpg"
+    },
+    "367638": {
+     "name": "Maximum Belt",
+     "number": "189",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367638/show_maximum-belt-189-115-blade-awakening.jpg"
+    },
+    "367652": {
+     "name": "Neo Upper Energy",
+     "number": "203",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/367652/show_neo-upper-energy-203-115-blade-awakening.jpg"
+    },
     "367654": {
      "name": "Shiftry",
      "number": "205",
@@ -58488,6 +59082,60 @@
      "number": "172",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/378753/show_bloodmoon-ursaluna-ex-csv8c-ultra-rare-172-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378754": {
+     "name": "Unfair Stamp",
+     "number": "173",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378754/show_unfair-stamp-csv8c-173-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378757": {
+     "name": "Secret Box",
+     "number": "176",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378757/show_secret-box-csv8c-176-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378759": {
+     "name": "Dangerous Laser",
+     "number": "178",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378759/show_dangerous-laser-csv8c-178-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378761": {
+     "name": "Poké Vital A",
+     "number": "180",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378761/show_poke-vital-a-csv8c-180-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378762": {
+     "name": "Scoop Up Cyclone",
+     "number": "181",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378762/show_scoop-up-cyclone-csv8c-181-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378767": {
+     "name": "Sparkling Crystal",
+     "number": "186",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378767/show_sparkling-crystal-csv8c-186-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378770": {
+     "name": "Deluxe Bomb",
+     "number": "189",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378770/show_deluxe-bomb-csv8c-189-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378785": {
+     "name": "Neutralization Zone",
+     "number": "204",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378785/show_neutralization-zone-csv8c-204-207-csv8c-brilliant-fantasy.jpg"
+    },
+    "378788": {
+     "name": "Legacy Energy",
+     "number": "207",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/378788/show_legacy-energy-csv8c-207-207-csv8c-brilliant-fantasy.jpg"
     },
     "378789": {
      "name": "Larvesta",
@@ -60049,6 +60697,60 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/390521/show_390521-terapagos-ex-csve1c-ultra-rare-175-208-csv9-stellar-crystal.jpg"
     },
+    "390522": {
+     "name": "Energy Search Pro",
+     "number": "176",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390522/show_390522-energy-search-pro-csve1c-176-208-csv9-stellar-crystal.jpg"
+    },
+    "390526": {
+     "name": "Scramble Switch",
+     "number": "180",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390526/show_390526-scramble-switch-csve1c-full-art-180-208-csv9-stellar-crystal.jpg"
+    },
+    "390529": {
+     "name": "Brilliant Blender",
+     "number": "183",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390529/show_390529-brilliant-blender-csve1c-183-208-csv9-stellar-crystal.jpg"
+    },
+    "390532": {
+     "name": "Precious Trolley",
+     "number": "186",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390532/show_390532-precious-trolley-csve1c-186-208-csv9-stellar-crystal.jpg"
+    },
+    "390533": {
+     "name": "Miracle Headset",
+     "number": "187",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390533/show_390533-miracle-headset-csve1c-187-208-csv9-stellar-crystal.jpg"
+    },
+    "390534": {
+     "name": "Megaton Blower",
+     "number": "188",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390534/show_390534-megaton-blower-csve1c-188-208-csv9-stellar-crystal.jpg"
+    },
+    "390537": {
+     "name": "Amulet of Hope",
+     "number": "191",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390537/show_390537-amulet-of-hope-csve1c-shiny-ultra-rare-191-208-csv9-stellar-crystal.jpg"
+    },
+    "390551": {
+     "name": "Grand Tree",
+     "number": "205",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390551/show_390551-grand-tree-csve1c-gold-secret-rare-205-208-csv9-stellar-crystal.jpg"
+    },
+    "390554": {
+     "name": "Enriching Energy",
+     "number": "208",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/390554/show_390554-enriching-energy-csve1c-gold-secret-rare-208-208-csv9-stellar-crystal.jpg"
+    },
     "390555": {
      "name": "Turtonator",
      "number": "209",
@@ -60859,11 +61561,47 @@
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/392407/show_392407-terapagos-ex-csv9-5c-ultra-rare-156-208-csv9-5-terastal-gathering(2).png"
     },
+    "392414": {
+     "name": "Max Rod",
+     "number": "163",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/392414/show_392414-max-rod-csv9-5c-163-208-csv9-5-terastal-gathering(2).png"
+    },
+    "392417": {
+     "name": "Treasure Tracker",
+     "number": "166",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/392417/show_392417-treasure-tracker-csv9-5c-166-208-csv9-5-terastal-gathering(2).png"
+    },
+    "392419": {
+     "name": "Prime Catcher",
+     "number": "168",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/392419/show_392419-prime-catcher-csv9-5c-168-208-csv9-5-terastal-gathering(2).png"
+    },
+    "392420": {
+     "name": "Scoop Up Cyclone",
+     "number": "169",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/392420/show_392420-scoop-up-cyclone-csv9-5c-169-208-csv9-5-terastal-gathering.png"
+    },
+    "392423": {
+     "name": "Sparkling Crystal",
+     "number": "172",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/392423/show_392423-sparkling-crystal-csv9-5c-172-208-csv9-5-terastal-gathering.png"
+    },
     "392430": {
      "name": "Future Booster Energy Capsule",
      "number": "178",
      "rarity": "Ultra Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/392430/show_392430-future-booster-energy-capsule-csv9-5c-full-art-178-208-csv9-5-terastal-gathering.png"
+    },
+    "392431": {
+     "name": "Maximum Belt",
+     "number": "179",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/392431/show_392431-maximum-belt-csv9-5c-full-art-179-208-csv9-5-terastal-gathering.png"
     },
     "392432": {
      "name": "Technical Machine: Evolution",
@@ -60961,6 +61699,12 @@
      "rarity": "Secret Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/392456/show_392456-moonlit-hill-csv9-5c-gold-secret-rare-204-208-csv9-5-terastal-gathering.png"
     },
+    "392457": {
+     "name": "Neutralization Zone",
+     "number": "205",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/392457/show_392457-neutralization-zone-csv9-5c-gold-secret-rare-205-208-csv9-5-terastal-gathering.png"
+    },
     "392458": {
      "name": "Jet Energy",
      "number": "206",
@@ -60972,6 +61716,12 @@
      "number": "207",
      "rarity": "Secret Rare",
      "image": "https://www.cardtrader.com/uploads/blueprints/image/392459/show_392459-mist-energy-csv9-5c-gold-secret-rare-207-208-csv9-5-terastal-gathering.png"
+    },
+    "392460": {
+     "name": "Legacy Energy",
+     "number": "208",
+     "rarity": "ACE Rare",
+     "image": "https://www.cardtrader.com/uploads/blueprints/image/392460/show_392460-legacy-energy-csv9-5c-gold-secret-rare-208-208-csv9-5-terastal-gathering.png"
     },
     "392461": {
      "name": "Larry's Skill",

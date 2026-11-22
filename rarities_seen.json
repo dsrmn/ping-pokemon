@@ -57,15 +57,15 @@
  },
  "Rare ACE": {
   "cards": 77,
-  "monitored": false
+  "monitored": true
  },
  "ACE Rare": {
   "cards": 35,
-  "monitored": false
+  "monitored": true
  },
  "Special Illustration": {
   "cards": 10,
-  "monitored": false
+  "monitored": true
  },
  "Futuristic Rare": {
   "cards": 5,
@@ -73,6 +73,6 @@
  },
  "Special Illustraion Rare": {
   "cards": 3,
-  "monitored": false
+  "monitored": true
  }
 }
