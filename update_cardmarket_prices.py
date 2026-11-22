@@ -62,7 +62,7 @@ def get(path, lang):
 def norm_name(text):
     t = unicodedata.normalize("NFKD", str(text)).encode("ascii", "ignore").decode().lower()
     t = t.replace("&", " and ")
-    t = re.sub(r"\bpokemon\b", " ", t)
+    t = re.sub(r"\b(pokemon|tcg)\b", " ", t)
     return re.sub(r"[^a-z0-9]+", "", t)
 
 
@@ -84,6 +84,9 @@ def expansion_keys(exp):
     for p in parts:
         if p:
             keys.add(("name", norm_name(p)))
+            # "EX Deoxys" su Cardtrader = "Deoxys" su TCGdex
+            if p.lower().startswith("ex "):
+                keys.add(("name", norm_name(p[3:])))
             keys.add(("code", p.lower()))
     if exp.get("code"):
         keys.add(("code", exp["code"].lower()))
