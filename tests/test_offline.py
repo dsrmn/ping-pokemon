@@ -58,8 +58,8 @@ class FakeTG:
         FakeTG.sent.append(text)
         FakeTG.images.append(image_url)
         return True
-    def get_updates(self):
-        return list(self.updates)
+    def get_updates(self, offset):
+        return [u for u in self.updates if u["update_id"] >= offset]
 
 
 tmp = tempfile.mkdtemp()
@@ -137,25 +137,5 @@ tg.updates = [{"update_id": 5, "message": {"chat": {"id": 999}, "text": "/pausa"
               {"update_id": 6, "message": {"chat": {"id": 42}, "text": "/riprendi"}}]
 FakeTG.sent = []
 telegram_bot.process_commands(tg, c, bs, sa)
-assert bs["telegram_last_id"] == 6 and not bs["paused"] and len(FakeTG.sent) == 1
-FakeTG.sent = []
-telegram_bot.process_commands(tg, c, bs, sa)          # stessi messaggi: non rielaborati
-assert FakeTG.sent == []
-# comandi per un solo gioco / per l'altro bot
-own, other = ("pokemon", "yugioh") if telegram_bot.GAME == "pokemon" else ("yugioh", "pokemon")
-assert telegram_bot.route_command(f"/sconto {own} 35") == ("/sconto", "35")
-assert telegram_bot.route_command(f"/sconto 35 {own}") == ("/sconto", "35")
-assert telegram_bot.route_command(f"/pausa {other}") is None
-assert telegram_bot.route_command("/pausa") == ("/pausa", "")
-for cmd in telegram_bot.OTHER_BOT_COMMANDS:
-    assert telegram_bot.handle_command(f"{cmd} Qualcosa", c, bs, sa) == (None, False)
-unknown = telegram_bot.handle_command("/boh", c, bs, sa)[0]
-assert (unknown is not None) == telegram_bot.REPLIES_TO_UNKNOWN
-# vecchio stato con telegram_offset: riparte dall'ultimo letto
-old = {"paused": False, "overrides": {}, "telegram_offset": 7, "telegram_last_id": None}
-FakeTG.sent = []
-tg.updates.append({"update_id": 7, "message": {"chat": {"id": 42}, "text": "/pausa"}})
-telegram_bot.process_commands(tg, c, old, sa)
-assert old["paused"] and old["telegram_last_id"] == 7 and len(FakeTG.sent) == 1, FakeTG.sent
-assert FakeTG.sent[0].startswith(telegram_bot.GAME_LABEL + " · ")
+assert bs["telegram_offset"] == 7 and not bs["paused"] and len(FakeTG.sent) == 1
 print("TUTTI I TEST OK")

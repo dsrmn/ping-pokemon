@@ -40,9 +40,6 @@ HELP = (
     "/includi Nome carta — toglila dagli esclusi\n"
     "/oggi — migliori occasioni di oggi\n"
     "/aiuto — questo elenco\n\n"
-    "Lo stesso bot Telegram serve Yu-Gi-Oh! e Pokémon: /stato, /pausa, /riprendi, "
-    "/sconto e /oggi valgono per entrambi; aggiungi pokemon o yugioh per uno solo "
-    "(es. /pausa pokemon).\n"
     "Il bot legge i comandi a ogni giro (ogni 15-20 minuti)."
 )
 
@@ -83,56 +80,10 @@ class Telegram:
             return False
         return True
 
-    def get_updates(self):
-        """Messaggi non ancora scaduti (ultime 24 ore, max 100). Senza offset:
-        Telegram non li cancella, così li legge anche l'altro repository."""
-        resp = self._call("getUpdates", timeout=0, allowed_updates=["message"])
+    def get_updates(self, offset):
+        resp = self._call("getUpdates", offset=offset, timeout=0, allowed_updates=["message"])
         resp.raise_for_status()
         return resp.json().get("result", [])
-
-
-# ---------------------------------------------------------------------------
-# Un solo bot Telegram per due repository (ping-carte e ping-pokemon).
-# Entrambi leggono gli stessi messaggi: getUpdates viene chiamato SENZA
-# offset, così nessuno dei due "consuma" i comandi dell'altro (Telegram li
-# cancella da solo dopo 24 ore). Ognuno ricorda l'ultimo update_id letto.
-# Comandi comuni (/stato, /pausa, /sconto...) valgono per entrambi i giochi;
-# aggiungendo "pokemon" o "yugioh" vanno a uno solo, es. /sconto pokemon 35.
-
-GAME = "pokemon"
-GAME_LABEL = "⚡ Pokémon"
-GAME_ALIASES = {
-    "pokemon": {"pokemon", "pokémon", "pkmn", "pkm"},
-    "yugioh": {"yugioh", "yu-gi-oh", "yu-gi-oh!", "ygo"},
-}
-SHARED_COMMANDS = {"/start", "/aiuto", "/help", "/stato", "/pausa", "/riprendi", "/sconto", "/oggi"}
-OWN_COMMANDS = {"/minimo", "/escludi", "/includi"}
-OTHER_BOT_COMMANDS = {"/aggiungi", "/rimuovi"}
-REPLIES_TO_UNKNOWN = False  # solo un bot risponde ai comandi sconosciuti
-
-
-def _game_of(word):
-    w = word.lower()
-    return next((g for g, names in GAME_ALIASES.items() if w in names), None)
-
-
-def route_command(text):
-    """(comando, argomento) se il messaggio riguarda questo bot, altrimenti None."""
-    parts = text.strip().split()
-    cmd = parts[0].split("@")[0].lower()
-    words = parts[1:]
-    target = None
-    if words and _game_of(words[0]):
-        target, words = _game_of(words[0]), words[1:]
-    elif words and _game_of(words[-1]):
-        target, words = _game_of(words[-1]), words[:-1]
-    if target and target != GAME:
-        return None
-    if cmd in OTHER_BOT_COMMANDS:
-        return None
-    if cmd not in SHARED_COMMANDS | OWN_COMMANDS and not REPLIES_TO_UNKNOWN:
-        return None
-    return cmd, " ".join(words)
 
 
 # ---------------------------------------------------------------------------
@@ -142,11 +93,10 @@ def _eur(value):
 
 
 def handle_command(text, config, bot_state, sent_alerts):
-    """Applica un comando e ritorna (risposta o None, config_cambiata)."""
-    routed = route_command(text)
-    if routed is None:
-        return None, False  # comando per l'altro bot
-    cmd, arg = routed
+    """Applica un comando e ritorna (risposta, config_cambiata)."""
+    parts = text.strip().split(maxsplit=1)
+    cmd = parts[0].split("@")[0].lower()
+    arg = parts[1].strip() if len(parts) > 1 else ""
     excluded = config.setdefault("excluded_cards", [])
 
     if cmd in ("/start", "/aiuto", "/help"):
@@ -206,7 +156,7 @@ def handle_command(text, config, bot_state, sent_alerts):
         n_today = sum(1 for v in sent_alerts.values() if v.get("d") == d and v.get("n"))
         state = "⏸ in pausa" if bot_state["paused"] else "▶️ attivo"
         langs = ", ".join(l.upper() for l in config.get("languages", []))
-        return (f"<b>Stato</b>\n"
+        return (f"<b>Stato bot Pokémon</b>\n"
                 f"Notifiche: {state}\n"
                 f"Sconto minimo: {effective_discount(config, bot_state)}%\n"
                 f"Valore minimo carta: {_eur(effective_min_reference(config, bot_state))}\n"
@@ -233,19 +183,14 @@ def handle_command(text, config, bot_state, sent_alerts):
 def process_commands(tg, config, bot_state, sent_alerts):
     """Legge i messaggi arrivati dall'ultimo giro. Ritorna True se config
     è cambiato (carte escluse/incluse)."""
-    last_id = bot_state.get("telegram_last_id")
-    if last_id is None:  # stato vecchio: offset = ultimo letto + 1
-        last_id = bot_state.get("telegram_offset", 0) - 1
     try:
-        updates = tg.get_updates()
+        updates = tg.get_updates(bot_state["telegram_offset"])
     except Exception as e:
         print(f"  ! Non riesco a leggere i comandi Telegram: {e}")
         return False
     changed = False
-    for u in sorted(updates, key=lambda u: u["update_id"]):
-        if u["update_id"] <= last_id:
-            continue  # già letto in un giro precedente
-        last_id = bot_state["telegram_last_id"] = u["update_id"]
+    for u in updates:
+        bot_state["telegram_offset"] = u["update_id"] + 1
         msg = u.get("message") or {}
         text = (msg.get("text") or "").strip()
         if str((msg.get("chat") or {}).get("id")) != tg.chat_id:
@@ -255,8 +200,7 @@ def process_commands(tg, config, bot_state, sent_alerts):
         print(f"Comando ricevuto: {text}")
         reply, cfg_changed = handle_command(text, config, bot_state, sent_alerts)
         changed = changed or cfg_changed
-        if reply is not None:
-            tg.send(f"{GAME_LABEL} · {reply}")
+        tg.send(reply)
     return changed
 
 

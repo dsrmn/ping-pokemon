@@ -49,24 +49,17 @@ per limitarli). Un'inserzione già segnalata torna solo se scende di almeno
 | `/oggi` | migliori occasioni notificate oggi |
 | `/aiuto` | elenco comandi |
 
-Usa **lo stesso bot Telegram e la stessa chat di ping-carte**: i messaggi
-Pokémon iniziano con ⚡, quelli Yu-Gi-Oh! con 🃏. `/stato`, `/pausa`,
-`/riprendi`, `/sconto` e `/oggi` rispondono per entrambi i giochi; aggiungi
-`pokemon` o `yugioh` per darli a uno solo, es. `/pausa pokemon`,
-`/sconto pokemon 35`. Accetta comandi solo dalla chat `TELEGRAM_CHAT_ID`.
-
-Funziona perché nessuno dei due bot "consuma" i messaggi (getUpdates senza
-offset): ognuno ricorda l'ultimo messaggio letto. Per questo anche
-ping-carte deve avere la versione aggiornata di `telegram_bot.py`.
+Accetta comandi solo dalla chat `TELEGRAM_CHAT_ID`.
 
 ## Installazione
 
 1. Crea un repository GitHub **privato** `ping-pokemon` e caricaci questi file.
-2. Aggiorna ping-carte con il nuovo `telegram_bot.py` (vedi sopra), prima
-   di avviare questo bot.
+2. Su Telegram crea un **bot nuovo** con @BotFather (non riusare quello di
+   ping-carte: due bot che leggono i comandi dallo stesso token si rubano i
+   messaggi a vicenda). Scrivigli `/start`.
 3. *Settings → Secrets and variables → Actions*: aggiungi
-   `CARDTRADER_TOKEN`, `TELEGRAM_BOT_TOKEN` e `TELEGRAM_CHAT_ID`, **gli stessi
-   valori di ping-carte**.
+   `CARDTRADER_TOKEN` (lo stesso di ping-carte), `TELEGRAM_BOT_TOKEN` (del bot
+   nuovo) e `TELEGRAM_CHAT_ID` (lo stesso di ping-carte).
 4. *Actions → Build card index → Run workflow*. Nel log controlla l'elenco
    "Rarità trovate su Cardtrader": se una rarità che vuoi non ha la ✓,
    aggiungila (in minuscolo) ad `allowed_rarities` in `config.json`.
@@ -74,9 +67,7 @@ ping-carte deve avere la versione aggiornata di `telegram_bot.py`.
    attivo: stampa i messaggi nel log senza mandarli. Se va bene, lancialo
    senza dry_run.
 6. Come per ping-carte, su **cron-job.org** crea un job ogni 15 minuti che
-   avvia il workflow `monitor.yml` di questo repository, sfasato di qualche
-   minuto rispetto a quello di ping-carte (es. ping-carte a :00/:15/:30/:45,
-   questo a :07/:22/:37/:52), così i due bot non leggono Telegram nello
-   stesso istante.
+   avvia il workflow `monitor.yml` di questo repository (il pianificatore di
+   GitHub da solo salta molti giri).
 
 Test senza rete: `python tests/test_offline.py`
