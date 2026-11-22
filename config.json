@@ -5,7 +5,10 @@
     "min_reference_eur": 2.0
   },
   "ct_zero_only": true,
-  "languages": ["en", "jp"],
+  "languages": [
+    "en",
+    "jp"
+  ],
   "allowed_seller_countries": [],
   "deal_seller_countries": [],
   "min_listings_for_average": 4,
@@ -28,7 +31,11 @@
     "shiny super rare",
     "character rare",
     "character super rare",
-    "secret rare"
+    "secret rare",
+    "special illustration",
+    "special illustraion rare",
+    "ace rare",
+    "rare ace"
   ],
   "excluded_cards": [],
   "price_history": {
