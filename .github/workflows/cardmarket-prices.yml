@@ -1,0 +1,46 @@
+name: Update Cardmarket prices
+
+# Scarica da TCGdex i prezzi Cardmarket (minimo, trend, medie) delle carte
+# monitorate. Cardmarket li aggiorna una volta al giorno.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 4 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cardmarket-prices
+  cancel-in-progress: false
+
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa dipendenze
+        run: pip install -r requirements.txt
+
+      - name: Scarica i prezzi Cardmarket da TCGdex
+        run: python update_cardmarket_prices.py
+
+      - name: Salva i prezzi nel repository
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          for f in cardmarket_prices.json cardmarket_unmatched.json; do if [ -f "$f" ]; then git add "$f"; fi; done
+          if ! git diff --staged --quiet; then
+            git commit -m "Aggiorna prezzi Cardmarket"
+            for i in 1 2 3 4 5; do
+              git pull --rebase && git push && break
+              echo "Push fallito (tentativo $i), riprovo tra 5 secondi..."
+              sleep 5
+            done
+          fi

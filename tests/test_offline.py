@@ -37,12 +37,12 @@ class FakeCT:
         return [{"id": 100, "game_id": 5, "name": "Obsidian Flames", "code": "obf"},
                 {"id": 200, "game_id": 5, "name": "Base Set", "code": "bs"}]
     def get_blueprints_for_expansion(self, eid):
-        return {100: [{"id": 1, "name": "Charizard ex", "fixed_properties": {"collector_number": "223", "pokemon_rarity": "Special Illustration Rare"},
+        return {100: [{"id": 1, "name": "Charizard ex", "card_market_ids": [555], "fixed_properties": {"collector_number": "223", "pokemon_rarity": "Special Illustration Rare"},
                        "image": {"url": "/uploads/1/c.jpg", "show": {"url": "/uploads/1/show_c.jpg"}}},
-                      {"id": 2, "name": "Tyranitar ex", "fixed_properties": {"pokemon_rarity": "Double Rare"}},
-                      {"id": 3, "name": "Pikachu ex", "fixed_properties": {"pokemon_rarity": "Ultra Rare"}},
+                      {"id": 2, "name": "Tyranitar ex", "fixed_properties": {"collector_number": "002/197", "pokemon_rarity": "Double Rare"}},
+                      {"id": 3, "name": "Pikachu ex", "fixed_properties": {"collector_number": "3", "pokemon_rarity": "Ultra Rare"}},
                       {"id": 4, "name": "Pidgey", "fixed_properties": {"pokemon_rarity": "Common"}},
-                      {"id": 9, "name": "Mew ex", "fixed_properties": {"pokemon_rarity": "Hyper Rare"}},
+                      {"id": 9, "name": "Mew ex", "card_market_ids": [777], "fixed_properties": {"collector_number": "9", "pokemon_rarity": "Hyper Rare"}},
                       {"id": 5, "name": "Booster Box"}],
                 200: [{"id": 6, "name": "Charizard", "fixed_properties": {"pokemon_rarity": "Rare Holo"}}]}[eid]
     def get_marketplace_products_by_expansion(self, eid, language=None):
@@ -82,20 +82,45 @@ assert set(idx["expansions"]["100"]["blueprints"]) == {"1", "2", "3", "9"}     #
 assert build_card_index.index_is_current(cfg)
 assert json.load(open("rarities_seen.json"))["Common"] == {"cards": 1, "monitored": False}
 
+# --- prezzi Cardmarket da TCGdex finto --------------------------------------
+import update_cardmarket_prices as ucp  # noqa: E402
+assert idx["expansions"]["100"]["blueprints"]["1"]["cm_ids"] == [555]
+TCGDEX = {
+    ("en", "/sets"): [{"id": "sv03", "name": "Obsidian Flames"}],
+    ("ja", "/sets"): [{"id": "SV3", "name": "黒炎の支配者"}],
+    ("en", "/sets/sv03"): {"cards": [{"id": "sv03-223", "localId": "223"}, {"id": "sv03-2", "localId": "002"},
+                                     {"id": "sv03-3", "localId": "3"}, {"id": "sv03-9", "localId": "9"}]},
+    # Charizard: minimo 90 €; Tyranitar 1,50 €; Pikachu 10 €; Mew: ID Cardmarket sbagliato
+    ("en", "/cards/sv03-223"): {"pricing": {"cardmarket": {"idProduct": 555, "low": 90, "trend": 100, "avg30": 98}}},
+    ("en", "/cards/sv03-2"): {"pricing": {"cardmarket": {"low": 1.5, "trend": 2}}},
+    ("en", "/cards/sv03-3"): {"pricing": {"cardmarket": {"low": 10, "trend": 12}}},
+    ("en", "/cards/sv03-9"): {"pricing": {"cardmarket": {"idProduct": 1, "low": 50}}},
+}
+ucp.get = lambda path, lang: TCGDEX.get((lang, path))
+ucp.main()
+cmp = json.load(open("cardmarket_prices.json"))["cards"]
+assert set(cmp) == {"1", "2", "3"}, cmp            # Mew scartato (ID diverso)
+assert cmp["1"]["low"] == 90 and cmp["1"]["trend"] == 100
+assert ucp.norm_number("223/197") == "223" and ucp.norm_number("TG01") == "tg1"
+assert ucp.norm_name("Pokémon GO") == "go" and ucp.norm_name("Sword & Shield") == "swordandshield"
+
 # --- 1° giro -----------------------------------------------------------------
+# Charizard: minimo Cardmarket 90 € -> soglia 72 € (−20%): 55 € sì, 50 € non CT Zero no
+# Pikachu: minimo 10 € -> soglia 8 €: 6 € sì (risparmio 4 €)
+# Tyranitar: minimo 1,50 € sotto i 2 € -> ignorata
 sys.argv = ["monitor.py"]
 monitor.main()
 sent = json.load(open("sent_alerts.json"))
 assert set(sent) == {"1:5", "3:34"}, sent
 msgs = [m for m in FakeTG.sent if m.startswith("⚡")]
-assert len(msgs) == 2 and "Charizard ex" in msgs[0], msgs     # prima lo sconto più alto (−44%)
-assert "Pikachu ex" in msgs[1] and "Giapponese" in msgs[1] and "🇯🇵 JP" in msgs[1], msgs[1]
+assert len(msgs) == 2 and "Pikachu ex" in msgs[0], msgs       # prima lo sconto più alto (−40% su −39%)
+assert "Giapponese" in msgs[0] and "🇯🇵 JP" in msgs[0], msgs[0]
+assert "invece di 90,00 €" in msgs[1] and "prezzo minimo Cardmarket" in msgs[1] and "Cerca su Cardmarket" in msgs[1]
 assert any(m.startswith("📊") for m in FakeTG.sent), "manca il riepilogo"
-assert FakeTG.images[0] == "https://www.cardtrader.com/uploads/1/show_c.jpg", FakeTG.images
+assert FakeTG.images[1] == "https://www.cardtrader.com/uploads/1/show_c.jpg", FakeTG.images
 hist = json.load(open("price_history.json"))
-assert hist["1:en"][state.today()] == 9800 and hist["1:jp"][state.today()] == 3900, hist
-assert "2:en" not in hist, "le carte sotto i 2 € non vanno nello storico"
-print(msgs[0], "\n")
+assert hist["1"][state.today()] == 10000, hist            # trend Cardmarket
+print(msgs[1], "\n")
 
 # --- 2° giro: niente doppioni; ribasso di un'inserzione già notificata ------
 FakeTG.sent = []
@@ -119,10 +144,13 @@ monitor.main()
 msgs = [m for m in FakeTG.sent if m.startswith("⚡")]
 assert len(msgs) == 1 and "Tyranitar ex" in msgs[0], msgs     # ora sopra il minimo; Pikachu escluso
 
-# --- storico ----------------------------------------------------------------
-series = {(state.now() - timedelta(days=i)).date().isoformat(): 1500 for i in range(1, 10)}
-assert monitor.history_reference(series, 7) == 15.0
-assert monitor.history_reference(dict(list(series.items())[:3]), 7) is None
+# --- prezzo Cardmarket incoerente: tutte le inserzioni sotto la soglia -> niente
+cmf = json.load(open("cardmarket_prices.json")); cmf["cards"]["1"]["low"] = 500
+json.dump(cmf, open("cardmarket_prices.json", "w"))
+FakeTG.sent = []
+MARKET[100][1].append(prod(99, 1, 30))
+monitor.main()
+assert not [m for m in FakeTG.sent if m.startswith("⚡")], FakeTG.sent
 
 # --- altri comandi Telegram ---------------------------------------------------
 r, ch = telegram_bot.handle_command("/sconto 40", c, bs, sa); assert bs["overrides"]["discount_below_average_pct"] == 40

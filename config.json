@@ -1,6 +1,6 @@
 {
   "deal_criteria": {
-    "discount_below_average_pct": 30,
+    "discount_below_average_pct": 20,
     "min_saving_eur": 1.0,
     "min_reference_eur": 2.0
   },
@@ -11,8 +11,6 @@
   ],
   "allowed_seller_countries": [],
   "deal_seller_countries": [],
-  "min_listings_for_average": 4,
-  "trim_pct": 0.1,
   "min_condition": "Slightly Played",
   "allowed_rarities": [
     "double rare",
@@ -39,8 +37,7 @@
   ],
   "excluded_cards": [],
   "price_history": {
-    "keep_days": 40,
-    "min_days_for_reference": 7
+    "keep_days": 40
   },
   "daily_summary": {
     "hour": 20,

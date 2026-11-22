@@ -11,30 +11,39 @@ Gira da solo su GitHub Actions. Fratello di `ping-carte` (Yu-Gi-Oh!).
    (`cards_index.json`). Non serve una lista di carte: i set nuovi entrano da
    soli, perché l'indice si rifà ogni lunedì. In `rarities_seen.json` trovi
    tutte le rarità che Cardtrader usa, con ✓ quelle monitorate.
-2. **Monitor** – `monitor.py` scarica le inserzioni un'espansione alla volta,
+2. **Prezzi Cardmarket** – ogni mattina il workflow "Update Cardmarket
+   prices" scarica da TCGdex i prezzi Cardmarket delle carte dell'indice.
+3. **Monitor** – `monitor.py` scarica le inserzioni un'espansione alla volta,
    calcola il prezzo di riferimento e manda un messaggio per carta, prima
    quelle con lo sconto più alto (max `notifications.max_messages_per_run`
    per giro, il resto al giro dopo).
 
 ## Quando è un'occasione
 
-**Prezzo di riferimento** di ogni carta, separato per lingua (e per reverse
-holo, se c'è): mediana delle inserzioni attuali (tolti gli estremi,
-`trim_pct`). Dopo `price_history.min_days_for_reference` giorni di storico si
-usa il più basso tra la mediana di oggi e quella delle ultime settimane, così
-un rialzo improvviso non crea false occasioni.
+**Prezzo di riferimento**: il **prezzo minimo di Cardmarket** ("From") della
+carta, scaricato ogni mattina da `update_cardmarket_prices.py` tramite
+[TCGdex](https://tcgdex.dev) (gratis, senza chiave) e salvato in
+`cardmarket_prices.json`. Per le reverse holo si usa il minimo delle reverse.
+Vale anche per le giapponesi, quando TCGdex ha il prezzo; le carte senza
+prezzo Cardmarket vengono saltate (elenco dei set non abbinati in
+`cardmarket_unmatched.json`). Il prezzo Cardmarket è unico per tutte le
+lingue e condizioni.
 
-**Occasione**: inserzione che costa
-- almeno `discount_below_average_pct`% meno del riferimento (30%), **e**
+**Occasione**: inserzione Cardtrader che costa
+- almeno `discount_below_average_pct`% meno del minimo Cardmarket (20%), **e**
 - almeno `min_saving_eur` in meno (1 €).
 
-Le carte con riferimento sotto `min_reference_eur` (2 €) vengono ignorate.
+Le carte con minimo Cardmarket sotto `min_reference_eur` (2 €) vengono
+ignorate. Se anche la mediana delle inserzioni Cardtrader (stessa lingua) è
+sotto la soglia, il prezzo Cardmarket è quasi certamente di un'altra versione
+e la carta viene saltata.
 
 Filtri: solo venditori CT Zero (`ct_zero_only`), lingue in `languages`
 (`en`, `jp`), condizione minima `min_condition`, niente carte gradate.
-Venditori di tutti i Paesi (`deal_seller_countries` vuoto; es. `["US","CA"]`
-per limitarli). Un'inserzione già segnalata torna solo se scende di almeno
-`notifications.renotify_if_cheaper_pct`%.
+Venditori di tutti i Paesi (`deal_seller_countries` vuoto). Un'inserzione già
+segnalata torna solo se scende di almeno `notifications.renotify_if_cheaper_pct`%.
+
+Il riepilogo serale usa il trend Cardmarket di 7 giorni prima.
 
 ## Comandi Telegram
 

@@ -158,6 +158,7 @@ def handle_command(text, config, bot_state, sent_alerts):
         langs = ", ".join(l.upper() for l in config.get("languages", []))
         return (f"<b>Stato bot Pokémon</b>\n"
                 f"Notifiche: {state}\n"
+                f"Riferimento: prezzo minimo Cardmarket\n"
                 f"Sconto minimo: {effective_discount(config, bot_state)}%\n"
                 f"Valore minimo carta: {_eur(effective_min_reference(config, bot_state))}\n"
                 f"Lingue: {langs}\n"

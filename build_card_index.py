@@ -30,7 +30,7 @@ from cardtrader_api import CardTraderClient
 CONFIG_FILE = "config.json"
 INDEX_FILE = "cards_index.json"
 RARITIES_FILE = "rarities_seen.json"
-INDEX_VERSION = 1
+INDEX_VERSION = 2
 IMAGE_EXT = (".jpg", ".jpeg", ".png", ".webp")
 
 
@@ -70,6 +70,22 @@ def find_image(bp):
     if best.startswith("/"):
         best = "https://www.cardtrader.com" + best
     return best
+
+
+def find_cardmarket_ids(bp):
+    """ID prodotto Cardmarket della carta, se Cardtrader li fornisce
+    (campo tipo 'card_market_ids'): servono a verificare l'abbinamento."""
+    for key, value in bp.items():
+        if "card_market" in key.lower() or "cardmarket" in key.lower():
+            vals = value if isinstance(value, list) else [value]
+            out = []
+            for v in vals:
+                try:
+                    out.append(int(v))
+                except (TypeError, ValueError):
+                    pass
+            return out
+    return []
 
 
 def rarities_fingerprint(config) -> str:
@@ -137,6 +153,7 @@ def main():
                 "number": find_prop(bp, "collector_number", "card_number"),
                 "rarity": rarity,
                 "image": find_image(bp),
+                "cm_ids": find_cardmarket_ids(bp),
             }
         if kept:
             out[str(exp_id)] = {

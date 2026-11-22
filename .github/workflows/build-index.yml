@@ -19,7 +19,7 @@ concurrency:
 jobs:
   build-index:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
 
@@ -35,11 +35,15 @@ jobs:
           CARDTRADER_TOKEN: ${{ secrets.CARDTRADER_TOKEN }}
         run: python build_card_index.py
 
+      - name: Aggiorna i prezzi Cardmarket delle carte nuove
+        continue-on-error: true
+        run: python update_cardmarket_prices.py
+
       - name: Salva indice nel repository
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          for f in cards_index.json rarities_seen.json; do if [ -f "$f" ]; then git add "$f"; fi; done
+          for f in cards_index.json rarities_seen.json cardmarket_prices.json cardmarket_unmatched.json; do if [ -f "$f" ]; then git add "$f"; fi; done
           if ! git diff --staged --quiet; then
             git commit -m "Aggiorna indice carte"
             for i in 1 2 3 4 5; do

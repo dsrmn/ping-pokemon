@@ -3,19 +3,21 @@ Esegue UNA scansione dei prezzi Cardtrader delle carte Pokémon Double Rare o
 superiore (cards_index.json) e notifica su Telegram le occasioni.
 Pensato per essere lanciato da GitHub Actions ogni 15-20 minuti.
 
-PREZZO DI RIFERIMENTO di ogni carta, separato per lingua (inglese / giapponese):
-  - mediana delle inserzioni attuali (tolti gli estremi, config: trim_pct)
-    di tutti i venditori che rispettano i filtri;
-  - con abbastanza storico (price_history.min_days_for_reference giorni negli
-    ultimi 30) si usa il PIÙ BASSO tra la mediana di oggi e quella storica:
-    così un rialzo improvviso non crea false occasioni.
+PREZZO DI RIFERIMENTO: prezzo minimo ("From") della carta su Cardmarket,
+scaricato una volta al giorno da update_cardmarket_prices.py
+(cardmarket_prices.json); per le reverse holo il minimo delle reverse.
+Le carte senza prezzo Cardmarket vengono saltate.
 
-OCCASIONE: inserzione (di un venditore CT Zero se ct_zero_only) che costa
-  - almeno discount_below_average_pct% meno del riferimento, e
-  - almeno min_saving_eur in meno.
-Le carte con riferimento sotto min_reference_eur (2 €) vengono ignorate.
+OCCASIONE: inserzione Cardtrader (di un venditore CT Zero se ct_zero_only) che
+costa almeno discount_below_average_pct% meno del minimo Cardmarket e almeno
+min_saving_eur in meno. Carte con minimo Cardmarket sotto min_reference_eur
+(2 €) ignorate. Se anche la mediana delle inserzioni Cardtrader sta sotto la
+soglia, il prezzo Cardmarket è probabilmente di un'altra versione: niente avviso.
 Un'inserzione già notificata torna solo se scende ancora di
 notifications.renotify_if_cheaper_pct%.
+
+Lo storico (price_history.json) tiene il trend Cardmarket di ogni giorno,
+per il riepilogo serale delle carte salite/scese.
 
 Variabili d'ambiente: CARDTRADER_TOKEN, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 Opzioni: --dry-run  stampa i messaggi nel log senza mandarli né salvare nulla
@@ -25,7 +27,8 @@ import os
 import statistics
 import sys
 import time
-from datetime import timedelta
+from datetime import datetime, timedelta
+from urllib.parse import quote_plus
 
 from cardtrader_api import CardTraderClient
 from state import (CONFIG_FILE, HISTORY_FILE, SENT_ALERTS_FILE, BOT_STATE_FILE,
@@ -34,7 +37,9 @@ from state import (CONFIG_FILE, HISTORY_FILE, SENT_ALERTS_FILE, BOT_STATE_FILE,
 from telegram_bot import Telegram
 
 INDEX_FILE = "cards_index.json"
-INDEX_VERSION = 1
+PRICES_FILE = "cardmarket_prices.json"
+PRICES_MAX_AGE_HOURS = 48
+INDEX_VERSION = 2
 
 CONDITION_ORDER = ["Mint", "Near Mint", "Slightly Played", "Moderately Played", "Played", "Poor"]
 CONDITION_SHORT = {"Mint": "M", "Near Mint": "NM", "Slightly Played": "SP",
@@ -50,16 +55,6 @@ def condition_rank(condition_name):
         return CONDITION_ORDER.index(condition_name)
     except ValueError:
         return None
-
-
-def trimmed_median(values, trim_pct):
-    """Mediana dopo aver tolto trim_pct dei valori più bassi e più alti.
-    Con un numero pari di valori prende il più basso dei due centrali."""
-    sorted_vals = sorted(values)
-    n = len(sorted_vals)
-    k = int(n * trim_pct)
-    trimmed = sorted_vals[k:n - k] if n - 2 * k >= 1 else sorted_vals
-    return statistics.median_low(trimmed)
 
 
 def find_prop(product, *needles):
@@ -107,16 +102,6 @@ def flag(country_code):
 # Storico prezzi
 # ---------------------------------------------------------------------------
 
-def history_reference(series, min_days):
-    """Mediana delle mediane giornaliere degli ultimi 30 giorni (oggi escluso)."""
-    limit = (now() - timedelta(days=30)).date().isoformat()
-    d = today()
-    vals = [c for day, c in series.items() if limit <= day < d]
-    if len(vals) < min_days:
-        return None
-    return statistics.median(vals) / 100
-
-
 def value_days_ago(series, days):
     for delta in (days, days + 1, days - 1):
         day = (now() - timedelta(days=delta)).date().isoformat()
@@ -137,30 +122,25 @@ def prune_history(history, keep_days):
 # Scansione
 # ---------------------------------------------------------------------------
 
-def group_key(product, lang):
-    """Lingua + eventuale reverse holo: prezzi diversi, riferimenti separati."""
-    rev = find_prop(product, "reverse")
-    return f"{lang}:rev" if is_true(rev) else lang
+def is_reverse(product):
+    return is_true(find_prop(product, "reverse"))
 
 
-def deals_for_group(bp_id, bp, exp, gkey, eligible, settings, sent_alerts, history, d):
-    """Occasioni tra le inserzioni di UNA carta in UNA lingua."""
+def deals_for_group(bp_id, bp, exp, reverse, eligible, settings, sent_alerts, cm, stats):
+    """Occasioni tra le inserzioni di UNA carta (normale o reverse holo),
+    confrontate con il prezzo minimo ("From") di Cardmarket."""
     found = []
-    if len(eligible) < settings["min_listings"]:
-        return found
-    current = trimmed_median([x for x, _, _ in eligible], settings["trim_pct"])
-    hist_key = f"{bp_id}:{gkey}"
-    if current >= settings["min_reference"] or hist_key in history:
-        series = history.setdefault(hist_key, {})
-        if d not in series:  # una registrazione al giorno
-            series[d] = int(round(current * 100))
-    else:
-        series = {}
-    hist_ref = history_reference(series, settings["min_history_days"])
-    ref = min(current, hist_ref) if hist_ref else current
-    if ref < settings["min_reference"]:
+    ref = cm.get("low_rev") if reverse else cm.get("low")
+    if not ref or ref < settings["min_reference"]:
         return found
     max_price = ref * (1 - settings["discount"] / 100)
+    if len(eligible) >= 3:
+        median_ct = statistics.median_low([x for x, _, _ in eligible])
+        if median_ct <= max_price:
+            # quasi tutte le inserzioni sarebbero "occasioni": il prezzo
+            # Cardmarket è di un'altra carta o è sballato -> nessun avviso
+            stats["suspect_ref"] += 1
+            return found
 
     for price, p, hub in eligible:
         if settings["ct_zero_only"] and not hub:
@@ -182,14 +162,14 @@ def deals_for_group(bp_id, bp, exp, gkey, eligible, settings, sent_alerts, histo
         found.append({
             "price": price,
             "ref": round(ref, 2),
-            "ref_is_history": bool(hist_ref) and hist_ref < current,
+            "trend": cm.get("trend_rev" if reverse else "trend"),
             "discount": round((1 - price / ref) * 100),
             "n_listings": len(eligible),
             "expansion": exp["name"],
             "number": bp.get("number"),
             "rarity": bp.get("rarity"),
-            "language": gkey.split(":")[0],
-            "reverse": gkey.endswith(":rev"),
+            "language": get_language(p) or "?",
+            "reverse": reverse,
             "condition": (p.get("properties_hash") or {}).get("condition"),
             "seller": user.get("username", "?"),
             "country": country,
@@ -197,18 +177,27 @@ def deals_for_group(bp_id, bp, exp, gkey, eligible, settings, sent_alerts, histo
             "cheaper_than": cheaper_than,
             "alert_key": alert_key,
             "url": f"https://www.cardtrader.com/en/cards/{bp_id}",
+            "cm_url": "https://www.cardmarket.com/en/Pokemon/Products/Search?searchString="
+                      + quote_plus(bp.get("name") or ""),
             "image": bp.get("image"),
         })
     return found
 
 
-def check_expansion(exp, products_by_bp, settings, sent_alerts, history, stats):
-    """Ritorna {titolo carta: [occasioni]} per una espansione e aggiorna lo storico."""
+def check_expansion(exp, products_by_bp, settings, sent_alerts, history, prices, stats):
+    """Ritorna {nome carta: [occasioni]} per una espansione e aggiorna lo storico."""
     found = {}
     d = today()
     for bp_id, bp in exp["blueprints"].items():
         if (bp.get("name") or "").lower() in settings["excluded"]:
             continue
+        cm = prices.get(bp_id)
+        if not cm:
+            stats["no_cm"] += 1
+            continue
+        if cm.get("trend"):
+            series = history.setdefault(bp_id, {})
+            series.setdefault(d, int(round(cm["trend"] * 100)))
         groups = {}
         for p in products_by_bp.get(int(bp_id), []):
             price_info = p.get("price", {}) or {}
@@ -219,8 +208,8 @@ def check_expansion(exp, products_by_bp, settings, sent_alerts, history, stats):
                 continue
             if p.get("graded") or is_true(find_prop(p, "graded", "altered", "signed")):
                 continue
-            lang = get_language(p) or "?"
-            if lang != "?" and lang not in settings["languages"]:
+            lang = get_language(p)
+            if lang and lang not in settings["languages"]:
                 continue
             if settings["countries"] and (p.get("user") or {}).get("country_code") not in settings["countries"]:
                 continue
@@ -231,13 +220,14 @@ def check_expansion(exp, products_by_bp, settings, sent_alerts, history, stats):
             hub = is_ct_zero(p)
             stats["listings"] += 1
             stats["ct_zero"] += hub
-            groups.setdefault(group_key(p, lang), []).append((cents / 100.0, p, hub))
+            groups.setdefault((is_reverse(p), lang), []).append((cents / 100.0, p, hub))
 
-        title = bp["name"]
-        for gkey, items in groups.items():
-            deals = deals_for_group(bp_id, bp, exp, gkey, items, settings, sent_alerts, history, d)
+        # per lingua: il controllo "prezzo Cardmarket incoerente" confronta
+        # inserzioni della stessa lingua (le giapponesi costano spesso meno)
+        for (reverse, _lang), items in groups.items():
+            deals = deals_for_group(bp_id, bp, exp, reverse, items, settings, sent_alerts, cm, stats)
             if deals:
-                found.setdefault(title, []).extend(deals)
+                found.setdefault(bp["name"], []).extend(deals)
     return found
 
 
@@ -265,17 +255,20 @@ def format_message(card_name, deals):
              f"{n} occasion{'e' if n == 1 else 'i'} · la migliore a <b>{eur(best['price'])}</b> (−{best['discount']}%)"]
     for d in deals[:MAX_LISTINGS_PER_MESSAGE]:
         edition = " · ".join(html.escape(str(x)) for x in (d["expansion"], d["number"], d["rarity"]) if x)
-        ref_note = "media ultime settimane" if d["ref_is_history"] else f"mediana su {d['n_listings']} inserzioni"
-        lines += ["", f"💰 <b>{eur(d['price'])}</b> invece di {eur(d['ref'])} (−{d['discount']}%) · {ref_note}"]
+        lines += ["", f"💰 <b>{eur(d['price'])}</b> invece di {eur(d['ref'])} (−{d['discount']}%)"
+                      " · prezzo minimo Cardmarket"]
+        if d.get("trend"):
+            lines.append(f"📈 Trend Cardmarket: {eur(d['trend'])}")
         if d["discount"] >= SUSPICIOUS_DISCOUNT:
-            lines.append("⚠️ Sconto sospetto: forse la mediana è falsata, controlla bene l'inserzione")
+            lines.append("⚠️ Sconto sospetto: forse il prezzo Cardmarket è di un'altra versione, controlla")
         if d["cheaper_than"]:
             lines.append(f"⬇️ Ribassata: prima era {eur(d['cheaper_than'])}")
         lines.append(f"📦 {edition}")
         lines.append(f"✅ {html.escape(details_line(d))}")
         country = d.get("country") or ""
         lines.append(f"👤 {html.escape(str(d['seller']))} {flag(country)} {html.escape(country)}".rstrip())
-        lines.append(f"🔗 <a href=\"{html.escape(d['url'], quote=True)}\">Apri su Cardtrader</a>")
+        lines.append(f"🔗 <a href=\"{html.escape(d['url'], quote=True)}\">Apri su Cardtrader</a>"
+                     f" · <a href=\"{html.escape(d['cm_url'], quote=True)}\">Cerca su Cardmarket</a>")
     if n > MAX_LISTINGS_PER_MESSAGE:
         lines += ["", f"…e altre {n - MAX_LISTINGS_PER_MESSAGE} inserzioni"]
     return "\n".join(lines)
@@ -290,8 +283,8 @@ def build_daily_summary(index, history, sent_alerts, cfg):
             labels[bp_id] = " · ".join(x for x in (bp["name"], exp["name"], bp.get("rarity")) if x)
     moves = []
     for key, series in history.items():
-        bp_id, _, gkey = key.partition(":")
-        if bp_id not in labels or d not in series:
+        bp_id = key.split(":")[0]
+        if ":" in key or bp_id not in labels or d not in series:
             continue
         cur = series[d] / 100
         old = value_days_ago(series, 7)
@@ -299,8 +292,7 @@ def build_daily_summary(index, history, sent_alerts, cfg):
             continue
         change = round((cur / old - 1) * 100)
         if abs(change) >= cfg["move_pct"]:
-            lang = gkey.split(":")[0]
-            label = labels[bp_id] + {"en": " · EN", "jp": " · JP"}.get(lang, "")
+            label = labels[bp_id]
             moves.append((change, label, old, cur))
     n_today = sum(1 for v in sent_alerts.values() if v.get("d") == d and v.get("n"))
     lines = [f"📊 <b>Riepilogo Pokémon del {now().strftime('%d/%m')}</b>",
@@ -309,12 +301,12 @@ def build_daily_summary(index, history, sent_alerts, cfg):
         if any(value_days_ago(s, 7) is not None for s in history.values()):
             lines.append(f"Nessuna carta salita o scesa di più del {cfg['move_pct']}% in una settimana.")
         else:
-            lines.append("Il confronto con la settimana scorsa partirà quando avrò 7 giorni di prezzi.")
+            lines.append("Il confronto con la settimana scorsa partirà quando avrò 7 giorni di prezzi Cardmarket.")
         return "\n".join(lines)
     ups = sorted([m for m in moves if m[0] > 0], key=lambda m: -m[0])[:cfg["max_lines"]]
     downs = sorted([m for m in moves if m[0] < 0], key=lambda m: m[0])[:cfg["max_lines"]]
     if ups:
-        lines += ["", "📈 <b>In salita</b> (rispetto a 7 giorni fa)"]
+        lines += ["", "📈 <b>In salita</b> (trend Cardmarket rispetto a 7 giorni fa)"]
         lines += [f"• {html.escape(l)}: {eur(o)} → {eur(c)} (+{ch}%)" for ch, l, o, c in ups]
     if downs:
         lines += ["", "📉 <b>In discesa</b>"]
@@ -343,9 +335,20 @@ def main():
     if not isinstance(index, dict) or index.get("version") != INDEX_VERSION:
         sys.exit("cards_index.json mancante o nel formato vecchio: esegui build_card_index.py")
 
+    prices_file = load_json(PRICES_FILE, None)
+    if not isinstance(prices_file, dict) or not prices_file.get("cards"):
+        sys.exit("cardmarket_prices.json mancante: esegui update_cardmarket_prices.py")
+    prices = prices_file["cards"]
+    try:
+        age_h = (now() - datetime.fromisoformat(prices_file["updated"])).total_seconds() / 3600
+    except (KeyError, ValueError, TypeError):
+        age_h = None
+
     bot_state = load_bot_state()
     sent_alerts = load_sent_alerts()
     history = load_json(HISTORY_FILE, {})
+    # vecchio formato (mediane Cardtrader per lingua "id:en"): non serve più
+    history = {k: v for k, v in history.items() if ":" not in k}
     tg = Telegram(tg_token, tg_chat, dry_run)
     notif = config.get("notifications", {})
     ph = config.get("price_history", {})
@@ -357,13 +360,10 @@ def main():
         "min_reference": effective_min_reference(config, bot_state),
         "ct_zero_only": config.get("ct_zero_only", True),
         "languages": {LANG_ALIASES.get(l.lower(), l.lower()) for l in config.get("languages", ["en", "jp"])},
-        "min_listings": config.get("min_listings_for_average", 4),
         "countries": set(config.get("allowed_seller_countries", [])),
         "deal_countries": set(config.get("deal_seller_countries", [])),
         "excluded": {c.strip().lower() for c in config.get("excluded_cards", [])},
-        "trim_pct": config.get("trim_pct", 0.1),
         "min_condition_rank": condition_rank(config.get("min_condition", "Slightly Played")),
-        "min_history_days": ph.get("min_days_for_reference", 7),
         "renotify_pct": notif.get("renotify_if_cheaper_pct", 10),
     }
 
@@ -375,7 +375,9 @@ def main():
           f" · sconto minimo {settings['discount']}% · min {settings['min_reference']} €"
           f" · solo CT Zero: {settings['ct_zero_only']}{' · IN PAUSA' if bot_state['paused'] else ''}")
 
-    stats = {"listings": 0, "ct_zero": 0}
+    if age_h is not None and age_h > PRICES_MAX_AGE_HOURS:
+        print(f"ATTENZIONE: prezzi Cardmarket vecchi di {round(age_h)} ore (workflow 'Update Cardmarket prices').")
+    stats = {"listings": 0, "ct_zero": 0, "no_cm": 0, "suspect_ref": 0}
     langs_seen = {}
     sample_printed = False
     deals_by_card = {}
@@ -396,11 +398,13 @@ def main():
                 print(f"  Proprietà di un'inserzione: {p.get('properties_hash')}; "
                       f"venditore: {sorted((p.get('user') or {}))}")
                 sample_printed = True
-        for card, deals in check_expansion(exp, products, settings, sent_alerts, history, stats).items():
+        for card, deals in check_expansion(exp, products, settings, sent_alerts, history, prices, stats).items():
             deals_by_card.setdefault(card, []).extend(deals)
 
     print(f"Lingue delle inserzioni scaricate: {dict(sorted(langs_seen.items(), key=lambda kv: -kv[1]))}")
     print(f"Inserzioni idonee: {stats['listings']}, di cui CT Zero: {stats['ct_zero']}")
+    print(f"Carte senza prezzo Cardmarket (saltate): {stats['no_cm']}; "
+          f"prezzo Cardmarket incoerente con Cardtrader (saltate): {stats['suspect_ref']}")
     if settings["ct_zero_only"] and stats["listings"] and not stats["ct_zero"]:
         print("ATTENZIONE: nessuna inserzione riconosciuta come CT Zero: controlla is_ct_zero().")
 

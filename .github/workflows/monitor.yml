@@ -22,7 +22,7 @@ concurrency:
 jobs:
   monitor:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -47,6 +47,10 @@ jobs:
           CARDTRADER_TOKEN: ${{ secrets.CARDTRADER_TOKEN }}
         run: python build_card_index.py --if-outdated
 
+      - name: Scarica i prezzi Cardmarket se mancano (solo la prima volta)
+        run: |
+          if [ ! -f cardmarket_prices.json ]; then python update_cardmarket_prices.py; fi
+
       - name: Esegui scansione prezzi
         env:
           CARDTRADER_TOKEN: ${{ secrets.CARDTRADER_TOKEN }}
@@ -64,7 +68,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          for f in sent_alerts.json cards_index.json rarities_seen.json config.json bot_state.json price_history.json; do
+          for f in sent_alerts.json cards_index.json rarities_seen.json cardmarket_prices.json cardmarket_unmatched.json config.json bot_state.json price_history.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           if ! git diff --staged --quiet; then
