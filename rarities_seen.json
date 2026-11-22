@@ -1,0 +1,78 @@
+{
+ "Common": {
+  "cards": 15086,
+  "monitored": false
+ },
+ "Fixed": {
+  "cards": 14392,
+  "monitored": false
+ },
+ "Uncommon": {
+  "cards": 12172,
+  "monitored": false
+ },
+ "Promo": {
+  "cards": 7945,
+  "monitored": false
+ },
+ "Ultra Rare": {
+  "cards": 5549,
+  "monitored": true
+ },
+ "Holo Rare": {
+  "cards": 5412,
+  "monitored": false
+ },
+ "Rare": {
+  "cards": 3816,
+  "monitored": false
+ },
+ "Secret Rare": {
+  "cards": 2247,
+  "monitored": true
+ },
+ "Illustration Rare": {
+  "cards": 1501,
+  "monitored": true
+ },
+ "Shiny Holo Rare": {
+  "cards": 1021,
+  "monitored": false
+ },
+ "Special Illustration Rare": {
+  "cards": 880,
+  "monitored": true
+ },
+ "Oversized": {
+  "cards": 312,
+  "monitored": false
+ },
+ "No Rarity": {
+  "cards": 309,
+  "monitored": false
+ },
+ "Shiny Ultra Rare": {
+  "cards": 126,
+  "monitored": true
+ },
+ "Rare ACE": {
+  "cards": 77,
+  "monitored": false
+ },
+ "ACE Rare": {
+  "cards": 35,
+  "monitored": false
+ },
+ "Special Illustration": {
+  "cards": 10,
+  "monitored": false
+ },
+ "Futuristic Rare": {
+  "cards": 5,
+  "monitored": false
+ },
+ "Special Illustraion Rare": {
+  "cards": 3,
+  "monitored": false
+ }
+}
